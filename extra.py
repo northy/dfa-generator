@@ -14,6 +14,7 @@ def writeNDFA(file, automaton, terminals, final) :
     lines.append(','.join(['State']+terminalslist)+'\n')
     for k,v in automaton.items() :
         if k in final : l = ['*'+k]
+        elif k in final and k=='S': l = ['->*'+k]
         elif k=='S' : l = ['->'+k]
         else : l = [k]
         for t in terminalslist :
@@ -30,7 +31,8 @@ def writeDFA(file, automaton, terminals, final) :
     lines = []
     lines.append(','.join(['State']+terminalslist)+'\n')
     for k,v in automaton.items() :
-        if k in final : l = ['*'+k]
+        if k in final and k=='<S>' : l = ['->*'+k]
+        elif k in final : l = ['*'+k]
         elif k=='<S>' : l = ['->'+k]
         else : l = [k]
         for t in terminalslist :
